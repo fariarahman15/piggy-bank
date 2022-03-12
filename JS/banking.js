@@ -20,7 +20,7 @@ document.getElementById('deposit-submit').addEventListener('click', function(){
     const currentBalance = document.getElementById('current-balance');
     const currentBalanceText = currentBalance.innerText;
     const currentBalanceAmount = parseFloat(currentBalanceText);
-    console.log(currentBalanceAmount);
+
     const totalBalance = currentBalanceAmount + totalDeposit;
     currentBalance.innerText = totalBalance;
 
@@ -49,7 +49,7 @@ document.getElementById('withdraw-submit').addEventListener('click', function(){
     const currentBalance = document.getElementById('current-balance');
     const currentBalanceText = currentBalance.innerText;
     const currentBalanceAmount = parseFloat(currentBalanceText);
-    console.log(currentBalanceAmount);
+    
     const totalBalance = currentBalanceAmount - totalWithdraw;
     currentBalance.innerText = totalBalance;
 })
