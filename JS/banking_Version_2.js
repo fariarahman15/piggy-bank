@@ -17,11 +17,16 @@ function updateTotal(totalFieldId, newAmount){
     return totalAmount;
 }
 
+function getCurrentBalance(){
+    const currentBalance = document.getElementById('current-balance');
+    const currentBalanceText = currentBalance.innerText;
+    const currentBalanceAmount = parseFloat(currentBalanceText)
+    return currentBalanceAmount;
+}
 
 function balanceUpdate(updatedAmount, amountAdded){
     const currentBalance = document.getElementById('current-balance');
-    const currentBalanceText = currentBalance.innerText;
-    const currentBalanceAmount = parseFloat(currentBalanceText);
+    const currentBalanceAmount = getCurrentBalance();
 
     if (amountAdded == true){
         const totalBalance = currentBalanceAmount + updatedAmount;
@@ -40,14 +45,17 @@ function balanceUpdate(updatedAmount, amountAdded){
 // deposit submit 
 document.getElementById('deposit-submit').addEventListener('click', function(){
 
+    
     // new deposit amount 
     const newDepositAmount = getInputAmount('new-deposit');
-
-    // update deposit amount
+    if (newDepositAmount >0){
+        // update deposit amount
     const updatedDeposit = updateTotal('current-deposit', newDepositAmount);
     
-    // update balance after deposit
-    const updatedBalance = balanceUpdate(newDepositAmount, true);
+        // update balance after deposit
+        const updatedBalance = balanceUpdate(newDepositAmount, true);
+    }
+    
 
 })
 
@@ -63,12 +71,22 @@ document.getElementById('withdraw-submit').addEventListener('click', function(){
 
     // new withdraw amount 
     const newWithdrawAmount = getInputAmount('new-withdraw');
+    const availableBalance = getCurrentBalance();
 
-    // update withdraw amount
+    if (newWithdrawAmount > 0 && availableBalance > newWithdrawAmount)
+    {
+        // update withdraw amount
     const updatedWithdraw = updateTotal('current-withdraw', newWithdrawAmount);
 
-     // update balance after deposit
-     const updatedBalance = balanceUpdate(newWithdrawAmount, false);
+        // update balance after deposit
+        const updatedBalance = balanceUpdate(newWithdrawAmount, false);
+    }
+
+    if (availableBalance < newWithdrawAmount)
+    {
+        console.log('Insufficient Balance');
+    }
+
 
 })
 
